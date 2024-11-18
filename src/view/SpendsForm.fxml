@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="419.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SpendsFormController">
+<AnchorPane fx:id="context" prefHeight="419.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SpendsFormController">
    <children>
-      <ImageView fx:id="context" fitHeight="428.0" fitWidth="750.0" pickOnBounds="true">
+      <ImageView fitHeight="428.0" fitWidth="750.0" pickOnBounds="true">
          <image>
             <Image url="@../assets/spend2-bg.jpg" />
          </image>

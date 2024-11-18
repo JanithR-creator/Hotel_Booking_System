@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardFormController">
+<AnchorPane fx:id="context" prefHeight="400.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardFormController">
    <children>
-      <ImageView fx:id="context" fitHeight="400.0" fitWidth="639.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="400.0" fitWidth="639.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../assets/db-bg.jpg" />
          </image>
@@ -26,7 +26,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button layoutX="361.0" layoutY="180.0" mnemonicParsing="false" onAction="#seeAmountOnClick" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: rgb(96,62,20);" text="Customer Spends" textFill="WHITE">
+      <Button layoutX="361.0" layoutY="180.0" mnemonicParsing="false" onAction="#spendsOnClick" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: rgb(96,62,20);" text="Customer Spends" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

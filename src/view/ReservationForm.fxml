@@ -104,7 +104,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="450.0" layoutY="207.0" mnemonicParsing="false" onAction="#amontOnAction" style="-fx-background-color: rgb(250,172,91); -fx-background-radius: 5;" text="Amount" textFill="WHITE" />
+            <Button layoutX="450.0" layoutY="207.0" mnemonicParsing="false" onAction="#amountOnAction" style="-fx-background-color: rgb(250,172,91); -fx-background-radius: 5;" text="Amount" textFill="WHITE" />
          </children>
       </Pane>
    </children>
