@@ -5,18 +5,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Customer {
     @Id
-    private String id;
+    private long id;
     private String name;
     private int contact;
     private Date checkIn;
     private Date checkOut;
 
     @OneToMany(mappedBy = "customer")
-    private Room room;
+    private Set<Room> rooms = new HashSet<>();
 
     @OneToOne(mappedBy = "customer")
     private Bill bill;
@@ -24,19 +26,21 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String id, String name, int contact, Date checkIn, Date checkOut) {
+    public Customer(long id, String name, int contact, Date checkIn, Date checkOut, Set<Room> rooms, Bill bill) {
         this.id = id;
         this.name = name;
         this.contact = contact;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.rooms = rooms;
+        this.bill = bill;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -72,19 +76,19 @@ public class Customer {
         this.checkOut = checkOut;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
     public Bill getBill() {
         return bill;
     }
 
     public void setBill(Bill bill) {
         this.bill = bill;
+    }
+
+    public Set<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
     }
 }

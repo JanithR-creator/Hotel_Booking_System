@@ -1,5 +1,6 @@
 package controller;
 
+import config.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,10 @@ import java.io.IOException;
 
 public class DashBoardFormController {
     public AnchorPane context;
+
+    public void initialize(){
+        HibernateUtil.getSession();
+    }
 
     public void reservationOnClick(ActionEvent actionEvent) throws IOException {
         setUi("ReservationForm");

@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private double restCharge;
     private double gymCharge;
     private double barCharge;
@@ -20,7 +20,8 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(int id, double restCharge, double gymCharge, double barCharge, double spaCharge, double roomCharge, double serviceCharge) {
+    public Bill(long id, double restCharge, double gymCharge, double barCharge, double spaCharge, double roomCharge,
+                double serviceCharge, Customer customer) {
         this.id = id;
         this.restCharge = restCharge;
         this.gymCharge = gymCharge;
@@ -28,13 +29,14 @@ public class Bill {
         this.spaCharge = spaCharge;
         this.roomCharge = roomCharge;
         this.serviceCharge = serviceCharge;
+        this.customer = customer;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

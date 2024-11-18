@@ -2,32 +2,33 @@ package entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Room {
     @Id
-    private int roomNum;
+    private long roomNum;
     private boolean acStatus;
     private String bedType;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
     public Room() {
     }
 
-    public Room(int roomNum, boolean acStatus, String bedType) {
+    public Room(long roomNum, boolean acStatus, String bedType, Customer customer) {
         this.roomNum = roomNum;
         this.acStatus = acStatus;
         this.bedType = bedType;
+        this.customer = customer;
     }
 
-    public int getRoomNum() {
+    public long getRoomNum() {
         return roomNum;
     }
 
-    public void setRoomNum(int roomNum) {
+    public void setRoomNum(long roomNum) {
         this.roomNum = roomNum;
     }
 

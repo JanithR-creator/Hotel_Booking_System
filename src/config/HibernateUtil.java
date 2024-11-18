@@ -1,3 +1,5 @@
+package config;
+
 import entity.Bill;
 import entity.Customer;
 import entity.Room;
@@ -12,7 +14,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
     private static SessionFactory sessionFactory = buildSessionFactory();
 
-    private static SessionFactory buildSessionFactory(){
+    private static SessionFactory buildSessionFactory() {
         StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
                 .configure("config/hibernate.cfg.xml")
                 .build();
