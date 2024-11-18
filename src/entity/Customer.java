@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,8 @@ public class Customer {
     private long id;
     private String name;
     private int contact;
-    private Date checkIn;
-    private Date checkOut;
+    private String checkIn;
+    private String checkOut;
 
     @OneToMany(mappedBy = "customer")
     private Set<Room> rooms = new HashSet<>();
@@ -26,7 +25,15 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(long id, String name, int contact, Date checkIn, Date checkOut, Set<Room> rooms, Bill bill) {
+    public Customer(long id, String name, int contact, String checkIn, String checkOut) {
+        this.id = id;
+        this.name = name;
+        this.contact = contact;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    public Customer(long id, String name, int contact, String checkIn, String checkOut, Set<Room> rooms, Bill bill) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -60,19 +67,19 @@ public class Customer {
         this.contact = contact;
     }
 
-    public Date getCheckIn() {
+    public String getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Date checkIn) {
+    public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
 
-    public Date getCheckOut() {
+    public String getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(Date checkOut) {
+    public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
 

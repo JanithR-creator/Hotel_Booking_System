@@ -1,17 +1,22 @@
 package controller;
 
+import config.HibernateUtil;
+import entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class ReservationFormController {
     public ImageView context;
@@ -27,6 +32,17 @@ public class ReservationFormController {
     public Text lblAmount;
 
     public void reserveOnAction(ActionEvent actionEvent) {
+        Customer customer = new Customer(Long.parseLong(txtNic.getText()), txtName.getText(),
+                Integer.parseInt(txtContact.getText()),
+                dateCheckIn.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                dateCheckOut.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        try (Session session = HibernateUtil.getSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(customer);
+            transaction.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Customer Saved..").show();
+        }
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {
