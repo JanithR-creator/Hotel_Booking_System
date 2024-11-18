@@ -17,7 +17,7 @@ public class Customer {
     private String checkOut;
 
     @OneToMany(mappedBy = "customer")
-    private Set<HotelRooms> rooms = new HashSet<>();
+    private Set<CustomerRoom> rooms = new HashSet<>();
 
     @OneToOne(mappedBy = "customer")
     private Bill bill;
@@ -33,7 +33,7 @@ public class Customer {
         this.checkOut = checkOut;
     }
 
-    public Customer(long id, String name, int contact, String checkIn, String checkOut, Set<HotelRooms> rooms, Bill bill) {
+    public Customer(long id, String name, int contact, String checkIn, String checkOut, Set<CustomerRoom> rooms, Bill bill) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -91,11 +91,11 @@ public class Customer {
         this.bill = bill;
     }
 
-    public Set<HotelRooms> getRooms() {
+    public Set<CustomerRoom> getRooms() {
         return rooms;
     }
 
-    public void setRooms(Set<HotelRooms> rooms) {
+    public void setRooms(Set<CustomerRoom> rooms) {
         this.rooms = rooms;
     }
 }

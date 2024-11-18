@@ -5,21 +5,21 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class HotelRooms {
+public class CustomerRoom {
     @Id
     private int number;
     private String acStatus;
     private String bedType;
     private String description;
-    private String price;
+    private double price;
 
     @ManyToOne
     private Customer customer;
 
-    public HotelRooms() {
+    public CustomerRoom() {
     }
 
-    public HotelRooms(int number, String acStatus, String bedType, String description, String price) {
+    public CustomerRoom(int number, String acStatus, String bedType, String description, double price) {
         this.number = number;
         this.acStatus = acStatus;
         this.bedType = bedType;
@@ -59,11 +59,11 @@ public class HotelRooms {
         this.description = description;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -75,3 +75,4 @@ public class HotelRooms {
         this.customer = customer;
     }
 }
+

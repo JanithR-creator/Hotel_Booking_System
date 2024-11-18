@@ -2,7 +2,8 @@ package config;
 
 import entity.Bill;
 import entity.Customer;
-import entity.HotelRooms;
+import entity.CustomerRoom;
+import entity.HotelRoom;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -22,7 +23,8 @@ public class HibernateUtil {
         Metadata metadata = new MetadataSources(standardRegistry)
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(Bill.class)
-                .addAnnotatedClass(HotelRooms.class)
+                .addAnnotatedClass(HotelRoom.class)
+                .addAnnotatedClass(CustomerRoom.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();
