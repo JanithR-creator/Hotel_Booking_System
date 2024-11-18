@@ -25,13 +25,14 @@ public class ReservationFormController {
     public TextField txtContact;
     public DatePicker dateCheckIn;
     public DatePicker dateCheckOut;
-    public TextField txtAcStatus;
-    public TextField txtRoomType;
-    public TableView tblRoomNum;
-    public TableColumn colRoomNum;
-    public Text lblAmount;
 
-    public void reserveOnAction(ActionEvent actionEvent) {
+    public void reserveOnAction(ActionEvent actionEvent) throws IOException {
+        if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
+                dateCheckIn.getValue() == null || dateCheckOut.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "You Are missing a field.").show();
+            return;
+        }
+
         Customer customer = new Customer(Long.parseLong(txtNic.getText()), txtName.getText(),
                 Integer.parseInt(txtContact.getText()),
                 dateCheckIn.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
@@ -41,7 +42,7 @@ public class ReservationFormController {
             Transaction transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
-            new Alert(Alert.AlertType.INFORMATION, "Customer Saved..").show();
+            setUi("RoomReserveForm");
         }
     }
 
@@ -49,12 +50,6 @@ public class ReservationFormController {
         setUi("DashBoardForm");
     }
 
-    public void availableOnAction(ActionEvent actionEvent) {
-    }
-
-    public void amountOnAction(ActionEvent actionEvent) {
-
-    }
 
     private void setUi(String location) throws IOException {
         Stage stage = (Stage) context.getScene().getWindow();
