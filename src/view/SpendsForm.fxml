@@ -75,13 +75,13 @@
       <Separator layoutX="20.0" layoutY="49.0" prefHeight="6.0" prefWidth="284.0" />
       <TableView fx:id="tblSpends" layoutX="12.0" layoutY="222.0" prefHeight="74.0" prefWidth="726.0">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="75.0" text="#id" />
-          <TableColumn fx:id="colRestaurantCharge" prefWidth="111.0" text="Restaurant Charge" />
-            <TableColumn fx:id="colGymCharge" prefWidth="111.0" text="Gym Charge" />
-            <TableColumn fx:id="colBarCharge" prefWidth="111.0" text="Bar Charge" />
-            <TableColumn fx:id="colSpaCharge" prefWidth="111.0" text="Spa Charge" />
-            <TableColumn fx:id="colRoomCharge" prefWidth="111.0" text="Room Charge" />
-            <TableColumn fx:id="colServiceCharge" prefWidth="95.0" text="Service Charge" />
+          <TableColumn fx:id="colId" prefWidth="41.0" text="#id" />
+          <TableColumn fx:id="colRestaurantCharge" prefWidth="126.0" text="Restaurant Charge" />
+            <TableColumn fx:id="colGymCharge" prefWidth="113.0" text="Gym Charge" />
+            <TableColumn fx:id="colBarCharge" prefWidth="105.0" text="Bar Charge" />
+            <TableColumn fx:id="colSpaCharge" prefWidth="121.0" text="Spa Charge" />
+            <TableColumn fx:id="colRoomCharge" prefWidth="114.0" text="Room Charge" />
+            <TableColumn fx:id="colServiceCharge" prefWidth="105.0" text="Service Charge" />
         </columns>
       </TableView>
       <Button layoutX="28.0" layoutY="350.0" mnemonicParsing="false" onAction="#backOnAction" style="-fx-background-color: rgb(137,79,26);" text="Back" textFill="WHITE">

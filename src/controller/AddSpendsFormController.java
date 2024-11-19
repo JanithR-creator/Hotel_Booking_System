@@ -43,23 +43,8 @@ public class AddSpendsFormController {
         try (Session session = HibernateUtil.getSession()) {
             CustomerRoom room = session.find(CustomerRoom.class, roomNo);
             Customer customer = session.find(Customer.class, customerNic);
-            String sql = "SELECT * FROM Bill WHERE customer_id = :nic";
-            NativeQuery<Bill> query = session.createNativeQuery(sql, Bill.class);
-            query.setParameter("nic", customerNic);
-            Bill bill1 = query.getSingleResult();
 
-            if (bill1 != null) {
-                bill1.setRoomCharge(room.getPrice());
-                bill1.setServiceCharge(Integer.parseInt(txtResCharge.getText()) * 0.3);
-                bill1.setRestCharge(Integer.parseInt(txtResCharge.getText()));
-                bill1.setSpaCharge(Integer.parseInt(txtSpaCharge.getText()));
-                bill1.setGymCharge(Integer.parseInt(txtGymCharge.getText()));
-                bill1.setBarCharge(Integer.parseInt(txtBarCharge.getText()));
-                bill1.setCustomer(customer);
-                Transaction transaction = session.beginTransaction();
-                session.saveOrUpdate(bill1);
-                transaction.commit();
-            } else {
+            if (SpendsFormController.newCustomerStatus) {
                 Bill bill = new Bill(
                         Integer.parseInt(txtResCharge.getText()),
                         Integer.parseInt(txtGymCharge.getText()),
@@ -72,8 +57,27 @@ public class AddSpendsFormController {
                 Transaction transaction = session.beginTransaction();
                 session.save(bill);
                 transaction.commit();
+            } else {
+                String sql = "SELECT * FROM Bill WHERE customer_id = :nic";
+                NativeQuery<Bill> query = session.createNativeQuery(sql, Bill.class);
+                query.setParameter("nic", customerNic);
+                Bill bill1 = query.getSingleResult();
+
+                bill1.setRoomCharge(room.getPrice());
+                bill1.setServiceCharge(Integer.parseInt(txtResCharge.getText()) * 0.3);
+                bill1.setRestCharge(Integer.parseInt(txtResCharge.getText()));
+                bill1.setSpaCharge(Integer.parseInt(txtSpaCharge.getText()));
+                bill1.setGymCharge(Integer.parseInt(txtGymCharge.getText()));
+                bill1.setBarCharge(Integer.parseInt(txtBarCharge.getText()));
+                bill1.setCustomer(customer);
+                Transaction transaction = session.beginTransaction();
+                session.saveOrUpdate(bill1);
+                transaction.commit();
             }
             setUi("SpendsForm");
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong...").show();
         }
 
     }

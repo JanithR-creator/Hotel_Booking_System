@@ -2,6 +2,7 @@ package decorator;
 
 import config.HibernateUtil;
 import entity.Bill;
+import entity.CustomerRoom;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -30,6 +31,13 @@ public class SpendsManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        try (Session session = HibernateUtil.getSession()) {
+            String sql = "SELECT * FROM CustomerRoom WHERE customerNic = :nic";
+            NativeQuery<CustomerRoom> query = session.createNativeQuery(sql, CustomerRoom.class);
+            query.setParameter("nic", Nic);
+            CustomerRoom room = query.getSingleResult();
+
+            return room.getPrice();
+        }
     }
 }

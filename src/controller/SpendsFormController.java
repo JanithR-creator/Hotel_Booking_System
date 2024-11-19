@@ -10,9 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,6 +22,7 @@ import view.tm.BillTm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SpendsFormController {
     public AnchorPane context;
@@ -41,6 +40,7 @@ public class SpendsFormController {
     public Label lblTotal;
     public static String Nic;
     private double amount;
+    public static boolean newCustomerStatus;
 
     public void initialize() {
         SpendsManager manager = new SpendsManager();
@@ -86,7 +86,7 @@ public class SpendsFormController {
                     bill.getServiceCharge()
             ));
             tblSpends.setItems(obList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -98,6 +98,14 @@ public class SpendsFormController {
     public void addSpendOnAction(ActionEvent actionEvent) throws IOException {
         AddSpendsFormController.customerNic = Nic;
         AddSpendsFormController.roomNo = Integer.parseInt(lblRoomNo.getText());
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION, "Are New Customer.", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            newCustomerStatus = true;
+        } else {
+            newCustomerStatus = false;
+        }
         setUi("AddSpendsForm");
     }
 
