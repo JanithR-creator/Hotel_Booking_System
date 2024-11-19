@@ -29,7 +29,7 @@ public class ReservationFormController {
 
 
     public void reserveOnAction(ActionEvent actionEvent) throws IOException {
-        /*if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
+        if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
                 dateCheckIn.getValue() == null || dateCheckOut.getValue() == null) {
             new Alert(Alert.AlertType.WARNING, "You Are missing a field.").show();
             return;
@@ -44,8 +44,8 @@ public class ReservationFormController {
             Transaction transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
-        }*/
-        //RoomReserveFormController.customer=customer;
+        }
+        RoomReserveFormController.customer=customer;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/RoomReserveForm.fxml"));
         Parent parent = loader.load();
 

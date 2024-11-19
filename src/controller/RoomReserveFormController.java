@@ -113,11 +113,16 @@ public class RoomReserveFormController {
     private void loadTableData() {
         try (Session session = HibernateUtil.getSession()) {
             ObservableList<RoomTm> obList = FXCollections.observableArrayList();
-            List<HotelRoom> hotelRooms = session.createQuery("FROM HotelRoom").list();
-            for (HotelRoom tempRoom : hotelRooms) {
-                obList.add(new RoomTm(tempRoom.getNumber(), tempRoom.getAcStatus(), tempRoom.getRoomType(),
-                        tempRoom.getDescription(), tempRoom.getPrice()));
+
+            String hql = "FROM HotelRoom h WHERE h.number NOT IN (SELECT c.number FROM CustomerRoom c)";
+            List<HotelRoom> availableRooms = session.createQuery(hql, HotelRoom.class).getResultList();
+
+            for (HotelRoom availableRoom : availableRooms) {
+                obList.add(new RoomTm(availableRoom.getNumber(), availableRoom.getAcStatus(),
+                        availableRoom.getRoomType(), availableRoom.getDescription(),
+                        availableRoom.getPrice()));
             }
+
             tblRooms.setItems(obList);
         }
     }
@@ -128,12 +133,24 @@ public class RoomReserveFormController {
             List<HotelRoom> hotelRooms = session.createQuery("FROM HotelRoom").list();
 
             for (HotelRoom tempRoom : hotelRooms) {
-                if (tempRoom.getRoomType().toLowerCase().equals(searchRoomType) &&
-                        tempRoom.getAcStatus().toLowerCase().equals(searchAcStatus)) {
-                    obList.add(new RoomTm(tempRoom.getNumber(), tempRoom.getAcStatus(), tempRoom.getRoomType(),
-                            tempRoom.getDescription(), tempRoom.getPrice()));
+
+            }
+            tblRooms.setItems(obList);
+        }
+        try (Session session = HibernateUtil.getSession()) {
+            ObservableList<RoomTm> obList = FXCollections.observableArrayList();
+
+            String hql = "FROM HotelRoom h WHERE h.number NOT IN (SELECT c.number FROM CustomerRoom c)";
+            List<HotelRoom> availableRooms = session.createQuery(hql, HotelRoom.class).getResultList();
+
+            for (HotelRoom availableRoom : availableRooms) {
+                if (availableRoom.getRoomType().toLowerCase().equals(searchRoomType) &&
+                        availableRoom.getAcStatus().toLowerCase().equals(searchAcStatus)) {
+                    obList.add(new RoomTm(availableRoom.getNumber(), availableRoom.getAcStatus(), availableRoom.getRoomType(),
+                            availableRoom.getDescription(), availableRoom.getPrice()));
                 }
             }
+
             tblRooms.setItems(obList);
         }
 
