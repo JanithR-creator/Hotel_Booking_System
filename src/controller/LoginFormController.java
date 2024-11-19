@@ -1,6 +1,7 @@
 package controller;
 
 import config.HibernateUtil;
+import decorator.SpendsManager;
 import entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ public class LoginFormController {
                 return;
             }
             SpendsFormController.Nic = txtNic.getText();
+            SpendsManager.Nic=txtNic.getText();
             setUi("SpendsForm");
         }
     }

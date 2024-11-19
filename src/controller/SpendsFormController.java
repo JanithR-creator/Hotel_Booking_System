@@ -1,6 +1,7 @@
 package controller;
 
 import config.HibernateUtil;
+import decorator.SpendsManager;
 import entity.Bill;
 import entity.Customer;
 import entity.CustomerRoom;
@@ -30,17 +31,22 @@ public class SpendsFormController {
     public Label lblNic;
     public Label lblRoomNo;
     public TableView<BillTm> tblSpends;
-    public TableColumn<?,?> colId;
-    public TableColumn<?,?> colRestaurantCharge;
-    public TableColumn<?,?> colGymCharge;
-    public TableColumn<?,?> colBarCharge;
-    public TableColumn<?,?> colSpaCharge;
-    public TableColumn<?,?> colRoomCharge;
-    public TableColumn<?,?> colServiceCharge;
+    public TableColumn<?, ?> colId;
+    public TableColumn<?, ?> colRestaurantCharge;
+    public TableColumn<?, ?> colGymCharge;
+    public TableColumn<?, ?> colBarCharge;
+    public TableColumn<?, ?> colSpaCharge;
+    public TableColumn<?, ?> colRoomCharge;
+    public TableColumn<?, ?> colServiceCharge;
     public Label lblTotal;
     public static String Nic;
+    private double amount;
 
     public void initialize() {
+        SpendsManager manager = new SpendsManager();
+        amount = manager.manager();
+        lblTotal.setText(Double.toString(amount));
+
         try (Session session = HibernateUtil.getSession()) {
             Customer customer = session.find(Customer.class, Nic);
             String sql = "SELECT * FROM CustomerRoom WHERE customerNic = :nic";
@@ -63,12 +69,12 @@ public class SpendsFormController {
         loadTableData();
     }
 
-    public void loadTableData(){
-        try (Session session = HibernateUtil.getSession()){
+    public void loadTableData() {
+        try (Session session = HibernateUtil.getSession()) {
             ObservableList<BillTm> obList = FXCollections.observableArrayList();
             String sql = "SELECT * FROM Bill WHERE customer_id = :nic";
             NativeQuery<Bill> query = session.createNativeQuery(sql, Bill.class);
-            query.setParameter("nic",Nic);
+            query.setParameter("nic", Nic);
             Bill bill = query.getSingleResult();
             obList.add(new BillTm(
                     bill.getId(),
@@ -80,6 +86,8 @@ public class SpendsFormController {
                     bill.getServiceCharge()
             ));
             tblSpends.setItems(obList);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

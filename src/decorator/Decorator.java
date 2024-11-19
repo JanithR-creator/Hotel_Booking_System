@@ -24,7 +24,6 @@ abstract class SpendDecorator implements Spend {
 class Restaurant extends SpendDecorator {
     private Spend spend;
     private double amount;
-    public double serviceCharge = amount * 0.3;
 
     public Restaurant(Spend spend, double amount) {
         this.spend = spend;
@@ -33,7 +32,7 @@ class Restaurant extends SpendDecorator {
 
     @Override
     public double getAmount() {
-        return spend.getAmount() + amount + serviceCharge;
+        return spend.getAmount() + amount + amount * 0.3;
     }
 }
 
