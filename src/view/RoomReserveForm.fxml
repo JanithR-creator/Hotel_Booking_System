@@ -27,12 +27,12 @@
                </font>
             </Label>
             <ComboBox fx:id="cmbAcStatus" layoutX="142.0" layoutY="11.0" prefWidth="150.0" />
-            <Label layoutX="28.0" layoutY="55.0" text="bedType">
+            <Label layoutX="28.0" layoutY="55.0" text="Room Type">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cmbBedType" layoutX="142.0" layoutY="52.0" prefWidth="150.0" />
+            <ComboBox fx:id="cmbRoomType" layoutX="142.0" layoutY="52.0" prefWidth="150.0" />
             <Button layoutX="244.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchOnAction" style="-fx-background-radius: 5; -fx-background-color: rgb(144,84,46);" text="Search" />
          </children>
       </Pane>

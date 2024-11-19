@@ -8,7 +8,7 @@ public class HotelRoom {
     @Id
     private int number;
     private String acStatus;
-    private String bedType;
+    private String roomType;
     private String description;
     private double price;
 
@@ -18,7 +18,7 @@ public class HotelRoom {
     public HotelRoom(int number, String acStatus, String bedType, String description, double price) {
         this.number = number;
         this.acStatus = acStatus;
-        this.bedType = bedType;
+        this.roomType = bedType;
         this.description = description;
         this.price = price;
     }
@@ -39,12 +39,12 @@ public class HotelRoom {
         this.acStatus = acStatus;
     }
 
-    public String getBedType() {
-        return bedType;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setBedType(String bedType) {
-        this.bedType = bedType;
+    public void setRoomType(String bedType) {
+        this.roomType = bedType;
     }
 
     public String getDescription() {

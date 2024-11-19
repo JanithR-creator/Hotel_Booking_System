@@ -18,45 +18,82 @@ import org.hibernate.Session;
 import view.tm.RoomTm;
 
 import java.io.IOException;
-import java.nio.file.SecureDirectoryStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RoomReserveFormController {
     public AnchorPane context;
-    public ComboBox cmbAcStatus;
-    public ComboBox cmbBedType;
-    public TableView tblRooms;
-    public TableColumn colNo;
-    public TableColumn colAcStatus;
-    public TableColumn colBedType;
-    public TableColumn colDesc;
-    public TableColumn colPrice;
+    public ComboBox<String> cmbAcStatus;
+    public ComboBox<String> cmbRoomType;
+    public TableView<RoomTm> tblRooms;
+    public TableColumn<?, ?> colNo;
+    public TableColumn<?, ?> colAcStatus;
+    public TableColumn<?, ?> colBedType;
+    public TableColumn<?, ?> colDesc;
+    public TableColumn<?, ?> colPrice;
+    private String searchAcStatus;
+    private String searchRoomType;
 
-    public void initialize(){
+    public void initialize() {
         colNo.setCellValueFactory(new PropertyValueFactory<>("number"));
         colAcStatus.setCellValueFactory(new PropertyValueFactory<>("acStatus"));
         colBedType.setCellValueFactory(new PropertyValueFactory<>("bedType"));
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        setCmbAcStatus();
+        setCmbRoomType();
         loadTableData();
     }
 
+    public void setCmbAcStatus() {
+        ArrayList<String> acStatus = new ArrayList<>(Arrays.asList("Ac", "Non Ac"));
+        ObservableList<String> obList = FXCollections.observableArrayList(acStatus);
+        cmbAcStatus.setItems(obList);
+    }
+
+    public void setCmbRoomType() {
+        ArrayList<String> types = new ArrayList<>(Arrays.asList("Single", "Double", "Family"));
+        ObservableList<String> obList = FXCollections.observableArrayList(types);
+        cmbRoomType.setItems(obList);
+    }
+
     public void searchOnAction(ActionEvent actionEvent) {
+        searchAcStatus = cmbAcStatus.getValue().toLowerCase().trim();
+        searchRoomType = cmbRoomType.getValue().toLowerCase().trim();
+        loadTableData(searchAcStatus, searchRoomType);
     }
 
     public void reserveOnAction(ActionEvent actionEvent) throws IOException {
         setUi("DashBoardForm");
     }
 
-    private void loadTableData(){
-        try(Session session = HibernateUtil.getSession()) {
+    private void loadTableData() {
+        try (Session session = HibernateUtil.getSession()) {
             ObservableList<RoomTm> obList = FXCollections.observableArrayList();
             List<HotelRoom> hotelRooms = session.createQuery("FROM HotelRoom").list();
 
-            for(HotelRoom tempRoom : hotelRooms){
-                obList.add(new RoomTm(tempRoom.getNumber(),tempRoom.getAcStatus(),tempRoom.getBedType(),
-                        tempRoom.getDescription(),tempRoom.getPrice()));
+            for (HotelRoom tempRoom : hotelRooms) {
+                obList.add(new RoomTm(tempRoom.getNumber(), tempRoom.getAcStatus(), tempRoom.getRoomType(),
+                        tempRoom.getDescription(), tempRoom.getPrice()));
+            }
+            tblRooms.setItems(obList);
+        }
+
+    }
+
+    private void loadTableData(String searchAcStatus, String searchRoomType) {
+        try (Session session = HibernateUtil.getSession()) {
+            ObservableList<RoomTm> obList = FXCollections.observableArrayList();
+            List<HotelRoom> hotelRooms = session.createQuery("FROM HotelRoom").list();
+
+            for (HotelRoom tempRoom : hotelRooms) {
+                if (tempRoom.getRoomType().toLowerCase().equals(searchRoomType) &&
+                        tempRoom.getAcStatus().toLowerCase().equals(searchAcStatus)) {
+                    obList.add(new RoomTm(tempRoom.getNumber(), tempRoom.getAcStatus(), tempRoom.getRoomType(),
+                            tempRoom.getDescription(), tempRoom.getPrice()));
+                }
             }
             tblRooms.setItems(obList);
         }

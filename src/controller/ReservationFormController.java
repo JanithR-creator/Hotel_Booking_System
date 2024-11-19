@@ -27,7 +27,7 @@ public class ReservationFormController {
     public DatePicker dateCheckOut;
 
     public void reserveOnAction(ActionEvent actionEvent) throws IOException {
-        if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
+       /* if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
                 dateCheckIn.getValue() == null || dateCheckOut.getValue() == null) {
             new Alert(Alert.AlertType.WARNING, "You Are missing a field.").show();
             return;
@@ -43,7 +43,8 @@ public class ReservationFormController {
             session.save(customer);
             transaction.commit();
             setUi("RoomReserveForm");
-        }
+        }*/
+        setUi("RoomReserveForm");
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {
