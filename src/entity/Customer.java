@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Customer {
     @Id
-    private long id;
+    private String id;
     private String name;
     private int contact;
     private String checkIn;
@@ -25,7 +25,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(long id, String name, int contact, String checkIn, String checkOut) {
+    public Customer(String id, String name, int contact, String checkIn, String checkOut) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -33,7 +33,7 @@ public class Customer {
         this.checkOut = checkOut;
     }
 
-    public Customer(long id, String name, int contact, String checkIn, String checkOut, Set<CustomerRoom> rooms, Bill bill) {
+    public Customer(String id, String name, int contact, String checkIn, String checkOut, Set<CustomerRoom> rooms, Bill bill) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -43,11 +43,11 @@ public class Customer {
         this.bill = bill;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

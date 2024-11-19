@@ -1,13 +1,15 @@
 package controller;
 
 import config.HibernateUtil;
+import entity.Customer;
+import entity.CustomerRoom;
 import entity.HotelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import view.tm.RoomTm;
 
 import java.io.IOException;
@@ -32,8 +35,11 @@ public class RoomReserveFormController {
     public TableColumn<?, ?> colBedType;
     public TableColumn<?, ?> colDesc;
     public TableColumn<?, ?> colPrice;
+    public static Customer customer;
     private String searchAcStatus;
     private String searchRoomType;
+    private RoomTm tm;
+
 
     public void initialize() {
         colNo.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -45,6 +51,12 @@ public class RoomReserveFormController {
         setCmbAcStatus();
         setCmbRoomType();
         loadTableData();
+        tblRooms.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        tm = newValue;
+                    }
+                });
     }
 
     public void setCmbAcStatus() {
@@ -60,27 +72,54 @@ public class RoomReserveFormController {
     }
 
     public void searchOnAction(ActionEvent actionEvent) {
+
+        if (cmbRoomType.getValue() == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Please Select Room Type.").show();
+            return;
+        } else if (cmbAcStatus.getValue() == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Please Select Ac/Non Ac.").show();
+            return;
+        }
         searchAcStatus = cmbAcStatus.getValue().toLowerCase().trim();
         searchRoomType = cmbRoomType.getValue().toLowerCase().trim();
         loadTableData(searchAcStatus, searchRoomType);
+        cmbAcStatus.setValue(null);
+        cmbRoomType.setValue(null);
     }
 
     public void reserveOnAction(ActionEvent actionEvent) throws IOException {
+        if (tm == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Please Select Your Room.").show();
+            return;
+        }
+        addCustomerRoom(customer, tm);
         setUi("DashBoardForm");
+    }
+
+    public void addCustomerRoom(Customer customer, RoomTm tm) {
+        try (Session session = HibernateUtil.getSession()) {
+            CustomerRoom customerRoom = new CustomerRoom(
+                    tm.getNumber(), tm.getAcStatus(), tm.getBedType(),
+                    tm.getDescription(), tm.getPrice()
+            );
+            customerRoom.setCustomer(customer);
+            Transaction transaction = session.beginTransaction();
+            session.save(customerRoom);
+            transaction.commit();
+
+        }
     }
 
     private void loadTableData() {
         try (Session session = HibernateUtil.getSession()) {
             ObservableList<RoomTm> obList = FXCollections.observableArrayList();
             List<HotelRoom> hotelRooms = session.createQuery("FROM HotelRoom").list();
-
             for (HotelRoom tempRoom : hotelRooms) {
                 obList.add(new RoomTm(tempRoom.getNumber(), tempRoom.getAcStatus(), tempRoom.getRoomType(),
                         tempRoom.getDescription(), tempRoom.getPrice()));
             }
             tblRooms.setItems(obList);
         }
-
     }
 
     private void loadTableData(String searchAcStatus, String searchRoomType) {

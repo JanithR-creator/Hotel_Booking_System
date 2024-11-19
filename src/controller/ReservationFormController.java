@@ -4,6 +4,7 @@ import config.HibernateUtil;
 import entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -26,14 +27,15 @@ public class ReservationFormController {
     public DatePicker dateCheckIn;
     public DatePicker dateCheckOut;
 
+
     public void reserveOnAction(ActionEvent actionEvent) throws IOException {
-       /* if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
+        /*if (txtNic.getText().isEmpty() || txtContact.getText().isEmpty() || txtName.getText().isEmpty() ||
                 dateCheckIn.getValue() == null || dateCheckOut.getValue() == null) {
             new Alert(Alert.AlertType.WARNING, "You Are missing a field.").show();
             return;
         }
 
-        Customer customer = new Customer(Long.parseLong(txtNic.getText()), txtName.getText(),
+        Customer customer = new Customer(txtNic.getText(), txtName.getText(),
                 Integer.parseInt(txtContact.getText()),
                 dateCheckIn.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 dateCheckOut.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -42,18 +44,17 @@ public class ReservationFormController {
             Transaction transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
-            setUi("RoomReserveForm");
         }*/
-        setUi("RoomReserveForm");
+        //RoomReserveFormController.customer=customer;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/RoomReserveForm.fxml"));
+        Parent parent = loader.load();
+
+        Stage stage = (Stage) context.getScene().getWindow();
+        stage.setScene(new Scene(parent));
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {
-        setUi("DashBoardForm");
-    }
-
-
-    private void setUi(String location) throws IOException {
         Stage stage = (Stage) context.getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/" + location + ".fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/DashBoardForm.fxml"))));
     }
 }

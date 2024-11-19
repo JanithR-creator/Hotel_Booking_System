@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -14,12 +15,14 @@ public class CustomerRoom {
     private double price;
 
     @ManyToOne
+    @JoinColumn(name = "customerNic")
     private Customer customer;
 
     public CustomerRoom() {
     }
 
-    public CustomerRoom(int number, String acStatus, String bedType, String description, double price) {
+    public CustomerRoom(int number, String acStatus, String bedType,
+                        String description, double price) {
         this.number = number;
         this.acStatus = acStatus;
         this.bedType = bedType;
@@ -74,5 +77,6 @@ public class CustomerRoom {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
 }
 
