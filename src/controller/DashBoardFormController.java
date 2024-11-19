@@ -21,7 +21,7 @@ public class DashBoardFormController {
     }
 
     public void spendsOnClick(ActionEvent actionEvent) throws IOException {
-        setUi("SpendsForm");
+        setUi("LoginForm");
     }
 
     private void setUi(String location) throws IOException {

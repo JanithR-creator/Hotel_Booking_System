@@ -20,6 +20,25 @@ public class Bill {
     public Bill() {
     }
 
+    public Bill(double restCharge, double gymCharge, double barCharge, double spaCharge, double roomCharge, double serviceCharge) {
+        this.restCharge = restCharge;
+        this.gymCharge = gymCharge;
+        this.barCharge = barCharge;
+        this.spaCharge = spaCharge;
+        this.roomCharge = roomCharge;
+        this.serviceCharge = serviceCharge;
+    }
+
+    public Bill(long id, double restCharge, double gymCharge, double barCharge, double spaCharge, double roomCharge, double serviceCharge) {
+        this.id = id;
+        this.restCharge = restCharge;
+        this.gymCharge = gymCharge;
+        this.barCharge = barCharge;
+        this.spaCharge = spaCharge;
+        this.roomCharge = roomCharge;
+        this.serviceCharge = serviceCharge;
+    }
+
     public Bill(long id, double restCharge, double gymCharge, double barCharge, double spaCharge, double roomCharge,
                 double serviceCharge, Customer customer) {
         this.id = id;

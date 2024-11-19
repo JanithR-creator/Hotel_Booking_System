@@ -45,7 +45,7 @@ public class ReservationFormController {
             session.save(customer);
             transaction.commit();
         }
-        RoomReserveFormController.customer=customer;
+        RoomReserveFormController.customer = customer;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/RoomReserveForm.fxml"));
         Parent parent = loader.load();
 
